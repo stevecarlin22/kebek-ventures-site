@@ -30,7 +30,7 @@ export default function HomePage() {
               Kebek Ventures supports leadership teams at moments of inflection,
               when growth is real but the system is not yet durable. We bring
               operating and commercial discipline to help organizations move from
-              momentum to repeatability.Experience spans early revenue through
+              momentum to repeatability. Experience spans early revenue through
               $3B+ platforms.
             </p>
 

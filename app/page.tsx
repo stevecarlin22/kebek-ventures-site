@@ -43,21 +43,6 @@ export default function HomePage() {
               </Link> 
             </div>
           </div>
-
-          {/* logo mark */}
-          <div className="mt-10 flex items-center gap-3">
-            <Image
-              src="/images/logo.jpg"
-              alt="Kebek Ventures logo"
-              width={64}
-              height={64}
-              className="rounded-2xl shadow-soft"
-            />
-            <p className="text-white/75 text-sm">
-              Led by Steve Carlin, global operator and growth strategist.
-            </p>
-          </div>
-        </div>
       </section>
 
       {/* Credibility */}

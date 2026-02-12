@@ -97,7 +97,7 @@ export default function ExperiencePage() {
       {/* What we deliver */}
       <Section
         title="What KV delivers in an engagement"
-        kicker="Deliverables"
+        kicker="Example Deliverables"
         subtitle="Practical artifacts and systems that leadership teams use to make decisions, align execution, and build repeatability."
       >
         <div className="grid gap-5 md:grid-cols-2">

@@ -122,19 +122,69 @@ export default function HomePage() {
       </section>
 
       <Section
-        title="Writing and appearances"
-        kicker="Thought leadership"
-        subtitle="A small selection from the current site. More can be added as needed."
+              {/* Point of view */}
+      <Section
+        title="Point of view"
+        kicker="Selected published insights and conversations"
       >
         <div className="grid gap-5 md:grid-cols-3">
-          {blocks.thoughtLeadership.map((b) => (
-            <div key={b.title} className="card p-6">
-              <p className="kicker">{b.outlet}</p>
-              <h3 className="h3 mt-3 text-lg">{b.title}</h3>
-              <p className="p-sm mt-2">{b.desc}</p>
-            </div>
-          ))}
+
+          {/* Total Retail Article */}
+          <div className="card p-6">
+            <p className="kicker text-black/60">MyTotalRetail</p>
+            <h3 className="h3 mt-2 text-lg">
+              RMN’s $100B blindspot: Solving attribution in physical stores
+            </h3>
+            <p className="p-sm mt-2">
+              A deep look at bridging digital and physical customer measurement.
+            </p>
+            <a
+              className="mt-4 inline-block text-sm font-semibold text-ember hover:underline"
+              href="https://www.mytotalretail.com/article/rmns-100b-blindspot-solving-attribution-in-physical-stores/"
+              target="_blank"
+            >
+              Read article
+            </a>
+          </div>
+
+          {/* YouTube Conversation */}
+          <div className="card p-6">
+            <p className="kicker text-black/60">YouTube / Conference Talk</p>
+            <h3 className="h3 mt-2 text-lg">
+              Scaling the operating model with systemic clarity
+            </h3>
+            <p className="p-sm mt-2">
+              A featured conversation on growth, systems, and strategic clarity.
+            </p>
+            <a
+              className="mt-4 inline-block text-sm font-semibold text-ember hover:underline"
+              href="https://www.youtube.com/watch?v=i9TlD_6V4Ps"
+              target="_blank"
+            >
+              Watch video
+            </a>
+          </div>
+
+          {/* StadiumTechReport Podcast */}
+          <div className="card p-6">
+            <p className="kicker text-black/60">StadiumTechReport</p>
+            <h3 className="h3 mt-2 text-lg">
+              AiFi CEO Steve Carlin sees more success ahead
+            </h3>
+            <p className="p-sm mt-2">
+              A podcast conversation on retail tech, automation, and scaling.
+            </p>
+            <a
+              className="mt-4 inline-block text-sm font-semibold text-ember hover:underline"
+              href="https://stadiumtechreport.com/podcasts/aifi-ceo-steve-carlin-sees-more-success-ahead-for-checkout-free-stores-in-stadiums/"
+              target="_blank"
+            >
+              Listen
+            </a>
+          </div>
+
         </div>
+      </Section>
       </Section>
     </main>
   );

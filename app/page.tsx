@@ -17,7 +17,7 @@ export default function HomePage() {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-fog" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
         <div className="relative container-pad mx-auto max-w-6xl pt-24 sm:pt-28 pb-14 sm:pb-20">

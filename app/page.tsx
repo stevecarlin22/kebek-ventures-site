@@ -30,7 +30,8 @@ export default function HomePage() {
               Kebek Ventures supports leadership teams at moments of inflection,
               when growth is real but the system is not yet durable. We bring
               operating and commercial discipline to help organizations move from
-              momentum to repeatability.
+              momentum to repeatability.Experience spans early revenue through
+              $3B+ platforms.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -39,10 +40,7 @@ export default function HomePage() {
               </Link>
               <Link className="btn-ghost" href="/where-we-help">
                 Where we help
-              </Link>
-              <span className="badge">
-                Experience from early revenue through $3B+ platforms
-              </span>
+              </Link> 
             </div>
           </div>
 

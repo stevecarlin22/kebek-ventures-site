@@ -9,12 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.5",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "clsx": "2.1.1"
-    "nodemailer": "6.9.14"
-  },
+  "clsx": "2.1.1",
+  "next": "14.2.5",
+  "react": "18.3.1",
+  "react-dom": "18.3.1",
+  "nodemailer": "6.9.14"
+}
+
   "devDependencies": {
     "autoprefixer": "10.4.20",
     "postcss": "8.4.41",

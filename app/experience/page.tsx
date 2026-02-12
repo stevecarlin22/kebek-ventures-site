@@ -75,7 +75,7 @@ export default function ExperiencePage() {
         <div className="max-w-3xl">
           <p className="kicker">Experience</p>
           <h1 className="mt-4 text-4xl sm:text-5xl font-semibold tracking-tight">
-            Advisory work that produces clarity and execution—not theater.
+            Advisory work that produces clarity and execution not theater.
           </h1>
           <p className="mt-5 text-base sm:text-lg leading-relaxed text-black/70">
             Kebek Ventures supports leadership teams at moments of inflection: growth is real,

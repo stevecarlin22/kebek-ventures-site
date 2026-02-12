@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  color-scheme: light;
+}
+
+*{ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+::selection{ background: rgba(214,90,49,0.25); }
+
+a{ text-underline-offset: 3px; }
+
+.container-pad{ @apply px-5 sm:px-8; }
+
+.card{ @apply rounded-2xl border border-black/5 bg-white shadow-soft; }
+
+.kicker{ @apply text-xs uppercase tracking-[0.18em] text-black/60; }
+
+.h1{ @apply text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-ink; }
+.h2{ @apply text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-ink; }
+.h3{ @apply text-xl sm:text-2xl font-semibold tracking-tight text-ink; }
+
+.p{ @apply text-base sm:text-lg leading-relaxed text-black/75; }
+.p-sm{ @apply text-sm leading-relaxed text-black/70; }
+
+.btn{ @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition; }
+.btn-primary{ @apply btn bg-ink text-white hover:bg-black; }
+.btn-ghost{ @apply btn bg-white/70 text-ink hover:bg-white border border-black/10; }
+.badge{ @apply inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white; }

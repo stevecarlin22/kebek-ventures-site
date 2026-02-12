@@ -7,7 +7,6 @@ import Card from "@/components/Card";
 export default function HomePage() {
   return (
     <main>
-      {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -40,12 +39,12 @@ export default function HomePage() {
               </Link>
               <Link className="btn-ghost" href="/where-we-help">
                 Where we help
-              </Link> 
+              </Link>
             </div>
           </div>
+        </div>
       </section>
 
-      {/* Credibility */}
       <Section
         title="A career built in serious operating environments"
         kicker="Credibility"
@@ -54,18 +53,21 @@ export default function HomePage() {
         <div className="card p-6 sm:p-8">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4 opacity-80">
             {logos.map((l) => (
-              <span key={l} className="text-sm font-semibold tracking-tight text-black/70">
+              <span
+                key={l}
+                className="text-sm font-semibold tracking-tight text-black/70"
+              >
                 {l}
               </span>
             ))}
           </div>
           <p className="p-sm mt-4">
-            Logos are listed for biography and experience context. No endorsement implied.
+            Logos are listed for biography and experience context. No endorsement
+            implied.
           </p>
         </div>
       </Section>
 
-      {/* What we do */}
       <Section
         title="Operator-grade help, not consultant theater"
         kicker="Approach"
@@ -78,7 +80,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Where we help */}
       <Section
         title="Where we help"
         kicker="Focus"
@@ -95,7 +96,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Visual rhythm */}
       <section className="container-pad mx-auto max-w-6xl py-10 sm:py-14">
         <div className="relative overflow-hidden rounded-3xl shadow-lift">
           <Image
@@ -121,7 +121,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Thought leadership */}
       <Section
         title="Writing and appearances"
         kicker="Thought leadership"
@@ -133,41 +132,10 @@ export default function HomePage() {
               <p className="kicker">{b.outlet}</p>
               <h3 className="h3 mt-3 text-lg">{b.title}</h3>
               <p className="p-sm mt-2">{b.desc}</p>
-              {b.href ? (
-                <a className="mt-4 inline-block text-sm font-semibold text-ember hover:underline" href={b.href} target="_blank">
-                  Read
-                </a>
-              ) : null}
             </div>
           ))}
         </div>
       </Section>
-
-      {/* CTA */}
-      <section className="container-pad mx-auto max-w-6xl pb-16 sm:pb-24">
-        <div className="rounded-3xl bg-ink text-white shadow-lift overflow-hidden">
-          <div className="p-8 sm:p-10 md:p-12 grid gap-8 md:grid-cols-2 items-center">
-            <div>
-              <p className="kicker text-white/70">Engage</p>
-              <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-tight">
-                Ready to make growth feel repeatable?
-              </h2>
-              <p className="mt-4 text-white/80 leading-relaxed">
-                If you are at an inflection point and want operating and commercial clarity,
-                Kebek Ventures can help.
-              </p>
-            </div>
-            <div className="flex md:justify-end gap-3 flex-wrap">
-              <Link className="btn-primary" href="/contact">
-                Contact
-              </Link>
-              <Link className="btn-ghost" href="/experience">
-                View experience
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

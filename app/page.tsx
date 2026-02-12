@@ -101,3 +101,84 @@ export default function HomePage() {
             src="/images/golden-gate.png"
             alt="Golden Gate Bridge"
             width={2400}
+            height={1200}
+            className="h-[280px] sm:h-[340px] md:h-[420px] w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-black/35" />
+          <div className="absolute inset-0 p-6 sm:p-10 flex items-end">
+            <div className="max-w-xl">
+              <p className="kicker text-white/80">Systems thinking</p>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+                Clear thinking, clean execution.
+              </h2>
+              <p className="mt-3 text-white/80">
+                Kebek Ventures helps leadership teams separate signal from noise,
+                align the organization, and build systems that scale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Section
+        title="Point of view"
+        kicker="Selected published insights and conversations"
+      >
+        <div className="grid gap-5 md:grid-cols-3">
+
+          <div className="card p-6">
+            <p className="kicker text-black/60">MyTotalRetail</p>
+            <h3 className="h3 mt-2 text-lg">
+              RMN’s $100B blindspot: Solving attribution in physical stores
+            </h3>
+            <p className="p-sm mt-2">
+              A deep look at bridging digital and physical customer measurement.
+            </p>
+            <a
+              className="mt-4 inline-block text-sm font-semibold text-ember hover:underline"
+              href="https://www.mytotalretail.com/article/rmns-100b-blindspot-solving-attribution-in-physical-stores/"
+              target="_blank"
+            >
+              Read article
+            </a>
+          </div>
+
+          <div className="card p-6">
+            <p className="kicker text-black/60">YouTube / Conference Talk</p>
+            <h3 className="h3 mt-2 text-lg">
+              Scaling the operating model with systemic clarity
+            </h3>
+            <p className="p-sm mt-2">
+              A featured conversation on growth, systems, and strategic clarity.
+            </p>
+            <a
+              className="mt-4 inline-block text-sm font-semibold text-ember hover:underline"
+              href="https://www.youtube.com/watch?v=i9TlD_6V4Ps"
+              target="_blank"
+            >
+              Watch video
+            </a>
+          </div>
+
+          <div className="card p-6">
+            <p className="kicker text-black/60">StadiumTechReport</p>
+            <h3 className="h3 mt-2 text-lg">
+              AiFi CEO Steve Carlin sees more success ahead
+            </h3>
+            <p className="p-sm mt-2">
+              A podcast conversation on retail tech, automation, and scaling.
+            </p>
+            <a
+              className="mt-4 inline-block text-sm font-semibold text-ember hover:underline"
+              href="https://stadiumtechreport.com/podcasts/aifi-ceo-steve-carlin-sees-more-success-ahead-for-checkout-free-stores-in-stadiums/"
+              target="_blank"
+            >
+              Listen
+            </a>
+          </div>
+
+        </div>
+      </Section>
+    </main>
+  );
+}

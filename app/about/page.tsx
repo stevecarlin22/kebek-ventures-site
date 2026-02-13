@@ -3,64 +3,66 @@ import Section from "@/components/Section";
 
 export default function AboutPage() {
   return (
-    <main className="container-pad mx-auto max-w-6xl py-14 sm:py-20">
-      <div className="grid gap-10 md:grid-cols-2 md:items-start">
-        <div className="max-w-xl">
-          <p className="kicker">About</p>
-          <h1 className="h1 mt-4">A distinctive, operator-led advisory platform.</h1>
-          <p className="p mt-5">
-            Kebek Ventures brings senior operating judgment to companies navigating scale and complexity.
-            The firm was built for leaders who want clarity, speed, and direct accountability, without the overhead of large consulting machinery.
-          </p>
+    <main className="container-pad mx-auto max-w-6xl py-24">
+      <Section
+        kicker="About"
+        title="Kebek Ventures"
+        subtitle="Operating perspective shaped inside complex, high-growth environments."
+      >
+        <div className="grid gap-10 md:grid-cols-2">
+          
+          {/* Left Column */}
+          <div className="space-y-6 text-black/70 leading-relaxed">
+            <p>
+              Kebek Ventures was created to help leadership teams navigate moments
+              where growth, complexity, and execution pressures collide. The firm
+              operates at the intersection of strategy and operating reality,
+              focusing on the structural decisions that determine whether momentum
+              becomes durable performance.
+            </p>
 
-          <Section
-            title="What Kebek Ventures believes"
-            subtitle="Simple principles that make engagements effective."
-          >
-            <div className="grid gap-5">
-              <div className="card p-6">
-                <h3 className="h3 text-lg">Be practical</h3>
-                <p className="p-sm mt-2">
-                  Strategy is only useful if it translates into decisions, owners, and execution.
-                </p>
-              </div>
-              <div className="card p-6">
-                <h3 className="h3 text-lg">Respect the system</h3>
-                <p className="p-sm mt-2">
-                  Growth breaks systems. We diagnose structure, incentives, and operating rhythms, then rebuild for durability.
-                </p>
-              </div>
-              <div className="card p-6">
-                <h3 className="h3 text-lg">Stay human</h3>
-                <p className="p-sm mt-2">
-                  The work is intense. The best results come from clarity, trust, and a sense of forward motion.
-                </p>
-              </div>
-            </div>
-          </Section>
-        </div>
+            <p>
+              The work is grounded in practical operating experience across consumer,
+              technology, platform, and automation-driven businesses. Engagements
+              typically center on diagnosing constraints, clarifying commercial
+              models, strengthening execution systems, and aligning leadership teams
+              around decisions that materially impact trajectory.
+            </p>
 
-        <div className="space-y-5">
-          <div className="relative overflow-hidden rounded-3xl shadow-lift">
-            <Image
-              src="/images/redwoods-original.png"
-              alt="Redwoods original photo"
-              width={1600}
-              height={1200}
-              className="h-[320px] w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0" />
-          </div>
-
-          <div className="card p-6 sm:p-7">
-            <h3 className="h3">Principal</h3>
-            <p className="p-sm mt-2">
-              Leading the team is Steve Carlin a global commercial and operating executive with leadership experience across AI platforms, automation, consumer, and global go-to-market.
-              He was a two-time CEO and a Venture Partner at Translink Capital.
+            <p>
+              Kebek Ventures is intentionally selective, partnering with organizations
+              where the challenges are consequential and the mandate is real.
             </p>
           </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            
+            <div className="card p-6">
+              <p className="kicker">Principle</p>
+              <p className="mt-2 text-black/70 leading-relaxed">
+                Enduring value creation is rarely constrained by ideas. It is
+                constrained by clarity, alignment, and disciplined execution.
+                Kebek Ventures focuses on strengthening the systems that allow
+                organizations to scale intelligently.
+              </p>
+            </div>
+
+            {/* Logo Placement */}
+            <div className="mt-10 flex justify-center">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 opacity-95">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="Kebek Ventures"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
+      </Section>
     </main>
   );
 }

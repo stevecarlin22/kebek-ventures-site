@@ -10,24 +10,26 @@ export default function ContactPage() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    // ✅ Save the form element immediately (before any await)
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
+
     setError("");
     setStatus("sending");
-
-    const form = new FormData(e.currentTarget);
 
     // Honeypot spam trap (should stay empty)
     const company = String(form.get("company") || "");
     if (company.trim().length > 0) {
-      // pretend success to bots
       setStatus("sent");
-      (e.currentTarget as HTMLFormElement).reset();
+      formEl.reset();
       return;
     }
 
     const payload = {
-      name: String(form.get("name") || ""),
-      email: String(form.get("email") || ""),
-      message: String(form.get("message") || ""),
+      name: String(form.get("name") || "").trim(),
+      email: String(form.get("email") || "").trim(),
+      message: String(form.get("message") || "").trim(),
     };
 
     try {
@@ -43,7 +45,7 @@ export default function ContactPage() {
       }
 
       setStatus("sent");
-      (e.currentTarget as HTMLFormElement).reset();
+      formEl.reset(); // ✅ Use saved reference
     } catch (err: any) {
       setStatus("error");
       setError(err?.message || "Could not send message.");

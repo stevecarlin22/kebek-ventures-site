@@ -5,9 +5,41 @@ function isEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
+type ContactPayload = { name?: string; email?: string; message?: string };
+
+async function readBody(req: Request): Promise<ContactPayload> {
+  const contentType = req.headers.get("content-type") || "";
+
+  // JSON (what we originally expected)
+  if (contentType.includes("application/json")) {
+    return (await req.json()) as ContactPayload;
+  }
+
+  // Form submit (multipart/form-data)
+  if (contentType.includes("multipart/form-data")) {
+    const fd = await req.formData();
+    return {
+      name: String(fd.get("name") || ""),
+      email: String(fd.get("email") || ""),
+      message: String(fd.get("message") || ""),
+    };
+  }
+
+  // URL-encoded (application/x-www-form-urlencoded) OR unknown
+  // Read as text and try to parse as querystring
+  const raw = await req.text();
+  const params = new URLSearchParams(raw);
+  return {
+    name: String(params.get("name") || ""),
+    email: String(params.get("email") || ""),
+    message: String(params.get("message") || ""),
+  };
+}
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body = await readBody(req);
+
     const name = String(body?.name || "").trim();
     const email = String(body?.email || "").trim();
     const message = String(body?.message || "").trim();
@@ -30,7 +62,6 @@ export async function POST(req: Request) {
     const TO_EMAIL = "scarlin@kebekventures.com";
 
     if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-      console.error("Missing SMTP env vars", { SMTP_HOST, SMTP_PORT, SMTP_USER, hasPass: !!SMTP_PASS });
       return NextResponse.json(
         { error: "Email is not configured yet (missing SMTP env vars)." },
         { status: 500 }
@@ -40,14 +71,9 @@ export async function POST(req: Request) {
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
       port: SMTP_PORT,
-      secure: SMTP_PORT === 465, // 587 => false
+      secure: SMTP_PORT === 465,
       auth: { user: SMTP_USER, pass: SMTP_PASS },
-      // Helpful for Google SMTP quirks:
-      tls: { minVersion: "TLSv1.2" },
     });
-
-    // This forces an auth/connection check so errors show clearly in logs
-    await transporter.verify();
 
     const subject = `Kebek Ventures inquiry — ${name}`;
     const text = [
@@ -69,16 +95,9 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    // THIS is what you need to see in Vercel logs
-    console.error("Contact form send failed:", err?.message || err, err);
-
-    // Return a useful hint (still not leaking secrets)
-    const hint =
-      typeof err?.message === "string" && err.message.toLowerCase().includes("auth")
-        ? "SMTP auth failed (check app password / SMTP_USER)."
-        : "Unable to send message.";
-
-    return NextResponse.json({ error: hint }, { status: 500 });
+  } catch (err) {
+    // If you want extra visibility without exposing secrets to users:
+    console.error("CONTACT_SEND_ERROR", err);
+    return NextResponse.json({ error: "Unable to send message." }, { status: 500 });
   }
 }

@@ -5,44 +5,53 @@ function isEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
-type ContactPayload = { name?: string; email?: string; message?: string };
-
-async function readBody(req: Request): Promise<ContactPayload> {
+async function readBody(req: Request): Promise<{ name: string; email: string; message: string }> {
   const contentType = req.headers.get("content-type") || "";
+  const raw = await req.text();
 
-  // JSON (what we originally expected)
+  // 1) JSON
   if (contentType.includes("application/json")) {
-    return (await req.json()) as ContactPayload;
-  }
-
-  // Form submit (multipart/form-data)
-  if (contentType.includes("multipart/form-data")) {
-    const fd = await req.formData();
+    const parsed = JSON.parse(raw || "{}");
     return {
-      name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
-      message: String(fd.get("message") || ""),
+      name: String(parsed?.name || "").trim(),
+      email: String(parsed?.email || "").trim(),
+      message: String(parsed?.message || "").trim(),
     };
   }
 
-  // URL-encoded (application/x-www-form-urlencoded) OR unknown
-  // Read as text and try to parse as querystring
-  const raw = await req.text();
-  const params = new URLSearchParams(raw);
+  // 2) URL-encoded form (name=...&email=...&message=...)
+  if (contentType.includes("application/x-www-form-urlencoded")) {
+    const params = new URLSearchParams(raw);
+    return {
+      name: String(params.get("name") || "").trim(),
+      email: String(params.get("email") || "").trim(),
+      message: String(params.get("message") || "").trim(),
+    };
+  }
+
+  // 3) Multipart form-data (common if you used FormData() in fetch)
+  // NOTE: If content-type is multipart, req.text() isn't useful. In that case, re-read as formData.
+  if (contentType.includes("multipart/form-data")) {
+    const fd = await req.formData();
+    return {
+      name: String(fd.get("name") || "").trim(),
+      email: String(fd.get("email") || "").trim(),
+      message: String(fd.get("message") || "").trim(),
+    };
+  }
+
+  // Default: try JSON as a last resort
+  const parsed = JSON.parse(raw || "{}");
   return {
-    name: String(params.get("name") || ""),
-    email: String(params.get("email") || ""),
-    message: String(params.get("message") || ""),
+    name: String(parsed?.name || "").trim(),
+    email: String(parsed?.email || "").trim(),
+    message: String(parsed?.message || "").trim(),
   };
 }
 
 export async function POST(req: Request) {
   try {
-    const body = await readBody(req);
-
-    const name = String(body?.name || "").trim();
-    const email = String(body?.email || "").trim();
-    const message = String(body?.message || "").trim();
+    const { name, email, message } = await readBody(req);
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
@@ -86,7 +95,7 @@ export async function POST(req: Request) {
       "— Sent from kebekventures.com contact form",
     ].join("\n");
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Kebek Ventures Website" <${SMTP_USER}>`,
       to: TO_EMAIL,
       replyTo: email,
@@ -94,10 +103,14 @@ export async function POST(req: Request) {
       text,
     });
 
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    // If you want extra visibility without exposing secrets to users:
-    console.error("CONTACT_SEND_ERROR", err);
-    return NextResponse.json({ error: "Unable to send message." }, { status: 500 });
+    return NextResponse.json({ ok: true, messageId: info.messageId });
+  } catch (err: any) {
+    // This is critical for debugging in Vercel logs:
+    console.error("CONTACT_SEND_FAILED", err?.message || err, err);
+
+    return NextResponse.json(
+      { error: "Unable to send message." },
+      { status: 500 }
+    );
   }
 }

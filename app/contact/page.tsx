@@ -20,7 +20,52 @@ export default function ContactPage() {
         action="/api/contact"
         method="POST"
         className="mt-10 space-y-5"
+        onSubmit={(e) => {
+          // Simple client-side protection:
+          // 1) Lock the button to prevent repeat rapid submits
+          const form = e.currentTarget;
+          const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+          if (btn) {
+            btn.disabled = true;
+            btn.textContent = "Sending...";
+          }
+
+          // 2) Honeypot: if a bot filled the hidden field, block submit silently
+          const website = (form.querySelector<HTMLInputElement>('input[name="website"]')?.value || "").trim();
+          if (website.length > 0) {
+            e.preventDefault();
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = "Send message";
+            }
+            return;
+          }
+
+          // 3) Basic message length check (client side)
+          const message = (form.querySelector<HTMLTextAreaElement>('textarea[name="message"]')?.value || "").trim();
+          if (message.length < 10) {
+            e.preventDefault();
+            alert("Please add a bit more detail (at least 10 characters).");
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = "Send message";
+            }
+          }
+        }}
       >
+        {/* Honeypot field (hidden). Humans never see it; bots often fill it. */}
+        <div style={{ display: "none" }} aria-hidden="true">
+          <label>
+            Website
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </label>
+        </div>
+
         <div>
           <label className="text-sm font-semibold">Name</label>
           <input
@@ -45,6 +90,7 @@ export default function ContactPage() {
           <textarea
             name="message"
             required
+            minLength={10}
             rows={5}
             className="mt-2 w-full rounded-xl border border-black/10 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ember/30"
           />

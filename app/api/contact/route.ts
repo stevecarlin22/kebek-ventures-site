@@ -22,16 +22,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Message is too short." }, { status: 400 });
     }
 
-    // Environment variables (set these in Vercel)
     const SMTP_HOST = process.env.SMTP_HOST;
     const SMTP_PORT = Number(process.env.SMTP_PORT || "587");
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASS = process.env.SMTP_PASS;
 
-    // Where you want to receive messages
     const TO_EMAIL = "scarlin@kebekventures.com";
 
     if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
+      console.error("Missing SMTP env vars", { SMTP_HOST, SMTP_PORT, SMTP_USER, hasPass: !!SMTP_PASS });
       return NextResponse.json(
         { error: "Email is not configured yet (missing SMTP env vars)." },
         { status: 500 }
@@ -41,12 +40,14 @@ export async function POST(req: Request) {
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
       port: SMTP_PORT,
-      secure: SMTP_PORT === 465, // true for 465, false for 587
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASS,
-      },
+      secure: SMTP_PORT === 465, // 587 => false
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
+      // Helpful for Google SMTP quirks:
+      tls: { minVersion: "TLSv1.2" },
     });
+
+    // This forces an auth/connection check so errors show clearly in logs
+    await transporter.verify();
 
     const subject = `Kebek Ventures inquiry — ${name}`;
     const text = [
@@ -60,15 +61,24 @@ export async function POST(req: Request) {
     ].join("\n");
 
     await transporter.sendMail({
-      from: `"Kebek Ventures Website" <${SMTP_USER}>`, // must usually be the authenticated sender
+      from: `"Kebek Ventures Website" <${SMTP_USER}>`,
       to: TO_EMAIL,
-      replyTo: email, // lets you hit Reply and respond to the sender
+      replyTo: email,
       subject,
       text,
     });
 
     return NextResponse.json({ ok: true });
-  } catch (err) {
-    return NextResponse.json({ error: "Unable to send message." }, { status: 500 });
+  } catch (err: any) {
+    // THIS is what you need to see in Vercel logs
+    console.error("Contact form send failed:", err?.message || err, err);
+
+    // Return a useful hint (still not leaking secrets)
+    const hint =
+      typeof err?.message === "string" && err.message.toLowerCase().includes("auth")
+        ? "SMTP auth failed (check app password / SMTP_USER)."
+        : "Unable to send message.";
+
+    return NextResponse.json({ error: hint }, { status: 500 });
   }
 }

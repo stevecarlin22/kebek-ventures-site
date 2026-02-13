@@ -55,7 +55,7 @@ export default function AboutPage() {
           <div className="card p-6 sm:p-7">
             <h3 className="h3">Principal</h3>
             <p className="p-sm mt-2">
-              Leading the team is Steve Carlin is a global commercial and operating executive with leadership experience across AI platforms, automation, consumer, and global go-to-market.
+              Leading the team is Steve Carlin a global commercial and operating executive with leadership experience across AI platforms, automation, consumer, and global go-to-market.
               He was a two-time CEO and a Venture Partner at Translink Capital.
             </p>
           </div>

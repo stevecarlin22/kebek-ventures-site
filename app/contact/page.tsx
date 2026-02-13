@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 export default function ContactPage() {
@@ -24,7 +26,9 @@ export default function ContactPage() {
           const form = e.currentTarget;
           const formData = new FormData(form);
 
-          const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+          const btn = form.querySelector<HTMLButtonElement>(
+            'button[type="submit"]'
+          );
           if (btn) {
             btn.disabled = true;
             btn.textContent = "Sending...";
@@ -57,49 +61,4 @@ export default function ContactPage() {
           <input
             name="name"
             required
-            className="mt-2 w-full rounded-xl border border-black/10 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ember/30"
-          />
-        </div>
-
-        <div>
-          <label className="text-sm font-semibold">Email</label>
-          <input
-            name="email"
-            type="email"
-            required
-            className="mt-2 w-full rounded-xl border border-black/10 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ember/30"
-          />
-        </div>
-
-        <div>
-          <label className="text-sm font-semibold">How can we help?</label>
-          <textarea
-            name="message"
-            required
-            rows={5}
-            className="mt-2 w-full rounded-xl border border-black/10 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ember/30"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="btn-primary"
-        >
-          Send message
-        </button>
-      </form>
-
-      {/* Logo block */}
-      <div className="mt-20 flex justify-center">
-        <div className="relative w-40 h-40 sm:w-48 sm:h-48 opacity-95">
-          <Image
-            src="/images/logo.jpg"
-            alt="Kebek Ventures"
-            fill
-            className="object-contain"
-          />
-        </div>
-      </div>
-    </main>
-  );
-}
+            className="mt-2 w-full rounded-xl border border-black/10 px-4

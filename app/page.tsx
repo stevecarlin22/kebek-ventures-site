@@ -46,7 +46,7 @@ export default function HomePage() {
       </section>
 
       <Section
-        title="A career built in serious operating environments"
+        title="A team built in serious operating environments"
         kicker="Credibility"
         subtitle="Experience across consumer, platforms, AI, automation, and global go-to-market."
       >
